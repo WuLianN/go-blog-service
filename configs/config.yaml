@@ -27,8 +27,8 @@ Email:
   To:
     - xxx
 JWT:
-  Secret: eddycjy
-  Issuer: blog-service
+  Secret: wuliann
+  Issuer: go-blog-service
   Expire: 7200
 Database:
   DBType: mysql

@@ -1,7 +1,7 @@
 package model
 
 import (
-	// "fmt"
+	"fmt"
 	// "time"
 
 	// otgorm "github.com/eddycjy/opentracing-gorm"
@@ -27,8 +27,15 @@ type Model struct {
 }
 
 func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*gorm.DB, error) {
-	// dsn := databaseSetting.UserName + ":" + databaseSetting.Password + "@tcp(" + databaseSetting.Host + ")/" + databaseSetting.DBName + "?charset=" + databaseSetting.Charset + "&parseTime=" + databaseSetting.ParseTime + "&loc=Local"
-	dsn := databaseSetting.UserName + ":" + databaseSetting.Password + "@tcp(" + databaseSetting.Host + ")/" + databaseSetting.DBName + "?charset=" + databaseSetting.Charset + "&parseTime=True" + "&loc=Local"
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&parseTime=%t&loc=Local",
+		databaseSetting.UserName,
+		databaseSetting.Password,
+		databaseSetting.Host,
+		databaseSetting.DBName,
+		databaseSetting.Charset,
+		databaseSetting.ParseTime,
+	)
+	
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		
 	})
