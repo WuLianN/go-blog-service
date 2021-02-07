@@ -15,6 +15,7 @@ import (
 	"github.com/WuLianN/go-blog/pkg/setting"
 	"github.com/WuLianN/go-blog/internal/model"
 	"github.com/WuLianN/go-blog/pkg/logger"
+	"github.com/WuLianN/go-blog/pkg/tracer"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -48,10 +49,10 @@ func init() {
 	// if err != nil {
 	// 	log.Fatalf("init.setupValidator err: %v", err)
 	// }
-	// err = setupTracer()
-	// if err != nil {
-	// 	log.Fatalf("init.setupTracer err: %v", err)
-	// }
+	err = setupTracer()
+	if err != nil {
+		log.Fatalf("init.setupTracer err: %v", err)
+	}
 }
 
 func main() {
@@ -165,11 +166,11 @@ func setupDBEngine() error {
 // 	return nil
 // }
 
-// func setupTracer() error {
-// 	jaegerTracer, _, err := tracer.NewJaegerTracer("blog-service", "127.0.0.1:6831")
-// 	if err != nil {
-// 		return err
-// 	}
-// 	global.Tracer = jaegerTracer
-// 	return nil
-// }
+func setupTracer() error {
+	jaegerTracer, _, err := tracer.NewJaegerTracer("blog-service", "127.0.0.1:6831")
+	if err != nil {
+		return err
+	}
+	global.Tracer = jaegerTracer
+	return nil
+}

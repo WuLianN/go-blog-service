@@ -1,12 +1,14 @@
 package routers
 
 import (
+	"net/http"
 	"time"
 	"github.com/gin-gonic/gin"
 	"github.com/WuLianN/go-blog/internal/routers/api"
 	"github.com/WuLianN/go-blog/internal/middleware"
 	"github.com/WuLianN/go-blog/global"
 	"github.com/WuLianN/go-blog/pkg/limiter"
+	// "github.com/WuLianN/go-blog/pkg/upload"
 )
 
 var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
@@ -22,10 +24,19 @@ var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
 func SetupRouter() *gin.Engine {
     r := gin.Default()
 
+	// 访问日志
+	r.Use(middleware.AccessLog())
+	// 链路追踪
+	r.Use(middleware.Tracing())
 	// 接口限流控制
 	r.Use(middleware.RateLimiter(methodLimiters))
 	// 统一超时管理
 	r.Use(middleware.ContextTimeout(global.AppSetting.DefaultContextTimeout))
+     
+	// 文件上传接口
+	upload := api.NewUpload()
+    r.POST("/upload/file", upload.UploadFile)
+	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 
 	r.GET("/auth", api.GetAuth)
     
