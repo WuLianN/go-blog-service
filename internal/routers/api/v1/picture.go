@@ -5,11 +5,15 @@ import (
 	"github.com/WuLianN/go-blog/global"
 	"github.com/WuLianN/go-blog/internal/service"
 	"github.com/WuLianN/go-blog/pkg/app"
-	"github.com/WuLianN/go-blog/pkg/convert"
+	// "github.com/WuLianN/go-blog/pkg/convert"
 	"github.com/WuLianN/go-blog/pkg/errcode"
 )
 
 type Picture struct{}
+
+func NewPicture() Picture {
+	return Picture{}
+}
 
 func (p Picture) List(c *gin.Context) {
 	param := service.PictureListRequest{}

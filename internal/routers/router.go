@@ -5,10 +5,10 @@ import (
 	"time"
 	"github.com/gin-gonic/gin"
 	"github.com/WuLianN/go-blog/internal/routers/api"
+	"github.com/WuLianN/go-blog/internal/routers/api/v1"
 	"github.com/WuLianN/go-blog/internal/middleware"
 	"github.com/WuLianN/go-blog/global"
 	"github.com/WuLianN/go-blog/pkg/limiter"
-	// "github.com/WuLianN/go-blog/pkg/upload"
 )
 
 var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
@@ -33,8 +33,9 @@ func SetupRouter() *gin.Engine {
 	// 统一超时管理
 	r.Use(middleware.ContextTimeout(global.AppSetting.DefaultContextTimeout))
      
-	// 文件上传接口
 	upload := api.NewUpload()
+    picture := v1.NewPicture()
+
     r.POST("/upload/file", upload.UploadFile)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 
@@ -48,8 +49,9 @@ func SetupRouter() *gin.Engine {
 				"message": "pong",
 			})
 		})
+
+		apiv1.GET("/pictures", picture.List)
 	}
 	
-    
     return r
 }

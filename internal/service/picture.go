@@ -1,6 +1,9 @@
 package service
 
-
+import (
+	"github.com/WuLianN/go-blog/pkg/app"
+	"github.com/WuLianN/go-blog/internal/model"
+)
 
 type CountPictureRequest struct {
 	Name  string `form:"name" binding:"max=100"`
@@ -8,6 +11,7 @@ type CountPictureRequest struct {
 }
 
 type PictureListRequest struct {
+	Name  string `form:"name" binding:"max=100"`
 	State uint8 `form:"state,default=1" binding:"oneof=0 1"`
 }
 

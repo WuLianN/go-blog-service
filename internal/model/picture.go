@@ -1,14 +1,15 @@
 package model
 
 import (
-	// "github.com/WuLianN/go-blog/pkg/app"
 	"gorm.io/gorm"
+	"github.com/WuLianN/go-blog/global"
 )
 
 type Picture struct {
 	*Model
 	Name string `json:"name"`
 	State uint8 `json:"state"`
+	Url string `json:"url"`
 }
 
 func (p Picture) TableName() string {
@@ -21,9 +22,12 @@ func (p Picture) Count(db *gorm.DB) (int, error) {
 		db = db.Where("name = ?", p.Name)
 	}
 	db = db.Where("state = ?", p.State)
-	if err := db.Model(&p).Where("is_del = ?", 0).Count(&count).Error; err != nil {
+	convertCount := int64(count)
+	if err := db.Model(&p).Where("is_del = ?", 0).Count(&convertCount).Error; err != nil {
 		return 0, err
 	}
+
+	count = int(convertCount)
 
 	return count, nil
 }
@@ -40,6 +44,10 @@ func (p Picture) List(db *gorm.DB, pageOffset, pageSize int) ([]*Picture, error)
 	db = db.Where("state = ?", p.State)
 	if err = db.Where("is_del = ?", 0).Find(&pictures).Error; err != nil {
 		return nil, err
+	}
+
+	for _, v := range pictures {
+		v.Url = global.AppSetting.UploadServerUrl + "/" + v.Name
 	}
 
 	return pictures, nil
