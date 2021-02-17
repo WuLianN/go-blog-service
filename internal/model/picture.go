@@ -17,19 +17,19 @@ func (p Picture) TableName() string {
 }
 
 func (p Picture) Count(db *gorm.DB) (int, error) {
-	var count int
+	var count int64
 	if p.Name != "" {
 		db = db.Where("name = ?", p.Name)
 	}
 	db = db.Where("state = ?", p.State)
-	convertCount := int64(count)
-	if err := db.Model(&p).Where("is_del = ?", 0).Count(&convertCount).Error; err != nil {
+
+	if err := db.Model(&p).Where("is_del = ?", 0).Count(&count).Error; err != nil {
 		return 0, err
 	}
 
-	count = int(convertCount)
+	convertCount := int(count)
 
-	return count, nil
+	return convertCount, nil
 }
 
 func (p Picture) List(db *gorm.DB, pageOffset, pageSize int) ([]*Picture, error) {
