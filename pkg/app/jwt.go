@@ -2,12 +2,10 @@ package app
 
 import (
 	"time"
-	// "fmt"
 
 	"github.com/WuLianN/go-blog/pkg/util"
-
-	"github.com/dgrijalva/jwt-go"
 	"github.com/WuLianN/go-blog/global"
+	"github.com/dgrijalva/jwt-go"
 )
 
 type Claims struct {
