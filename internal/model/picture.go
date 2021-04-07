@@ -10,6 +10,7 @@ type Picture struct {
 	Name string `json:"name"`
 	State uint8 `json:"state"`
 	Url string `json:"url"`
+	FileName string `json:"file_name"`
 }
 
 func (p Picture) TableName() string {
@@ -47,8 +48,7 @@ func (p Picture) List(db *gorm.DB, pageOffset, pageSize int) ([]*Picture, error)
 	}
 
 	for _, v := range pictures {
-		v.Url = global.AppSetting.UploadServerUrl + "/" + v.Name
+		v.Url = global.AppSetting.UploadServerUrl + "/" + v.FileName
 	}
-
 	return pictures, nil
 }
