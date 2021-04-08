@@ -1,8 +1,8 @@
 package model
 
 import (
-	"gorm.io/gorm"
 	"github.com/WuLianN/go-blog/global"
+	"gorm.io/gorm"
 )
 
 type Picture struct {
@@ -37,7 +37,7 @@ func (p Picture) List(db *gorm.DB, pageOffset, pageSize int) ([]*Picture, error)
 	var pictures []*Picture
 	var err error
 	if pageOffset >= 0 && pageSize > 0 {
-		db = db.Offset(pageOffset).Limit(pageSize)
+		db = db.Offset(pageOffset).Limit(pageSize).Order("id desc")
 	}
 	if p.Name != "" {
 		db = db.Where("name = ?", p.Name)
@@ -48,7 +48,7 @@ func (p Picture) List(db *gorm.DB, pageOffset, pageSize int) ([]*Picture, error)
 	}
 
 	for _, v := range pictures {
-		v.Url = global.AppSetting.UploadServerUrl + "/" + v.FileName
+		v.Url = global.AppSetting.BeautyUrl + v.FileName
 	}
 	return pictures, nil
 }
