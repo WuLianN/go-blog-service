@@ -3,12 +3,13 @@ package routers
 import (
 	"net/http"
 	"time"
-	"github.com/gin-gonic/gin"
-	"github.com/WuLianN/go-blog/internal/routers/api"
-	"github.com/WuLianN/go-blog/internal/routers/api/v1"
-	"github.com/WuLianN/go-blog/internal/middleware"
+
 	"github.com/WuLianN/go-blog/global"
+	"github.com/WuLianN/go-blog/internal/middleware"
+	"github.com/WuLianN/go-blog/internal/routers/api"
+	v1 "github.com/WuLianN/go-blog/internal/routers/api/v1"
 	"github.com/WuLianN/go-blog/pkg/limiter"
+	"github.com/gin-gonic/gin"
 )
 
 var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
@@ -24,8 +25,11 @@ var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
 func SetupRouter() *gin.Engine {
     r := gin.Default()
 
+	// 跨域
+	r.Use(middleware.Cors())
+
 	// 访问日志
-	r.Use(middleware.AccessLog())
+	// r.Use(middleware.AccessLog())
 	// 链路追踪
 	r.Use(middleware.Tracing())
 	// 接口限流控制
