@@ -36,19 +36,19 @@ import (
 
 var db *sql.DB
 
-func main(){
+func main() {
 	var err error
 	// db, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/blog")
 	db, err = sql.Open("mysql", "root:123456@/blog")
 
 	err = db.Ping()
-    if err != nil {
-        panic(err.Error())
-    }
+	if err != nil {
+		panic(err.Error())
+	}
 
 	db.SetConnMaxLifetime(time.Minute * 3)
-    db.SetMaxOpenConns(10)
-    db.SetMaxIdleConns(10)
+	db.SetMaxOpenConns(10)
+	db.SetMaxIdleConns(10)
 
 	defer db.Close()
 
@@ -62,9 +62,9 @@ func main(){
 	for _, file := range files {
 		if !file.IsDir() {
 			// 文件名 abc.jpg
-		    fileName := file.Name()
+			fileName := file.Name()
 
-		    // 去除后缀 abc
+			// 去除后缀 abc
 			name := strings.Split(fileName, ".")[0]
 
 			sqlStr += "(?, ?, ?, ?),"
@@ -74,12 +74,12 @@ func main(){
 	}
 
 	// trim the last ,
-    sqlStr = sqlStr[0:len(sqlStr)-1]
+	sqlStr = sqlStr[0 : len(sqlStr)-1]
 
-    // prepare the statement
-    stmt, _ := db.Prepare(sqlStr)
+	// prepare the statement
+	stmt, _ := db.Prepare(sqlStr)
 
-    // format all vals at once
-    stmt.Exec(vals...)
+	// format all vals at once
+	stmt.Exec(vals...)
 }
 ```
