@@ -8,8 +8,8 @@ import (
 	"path"
 	"strings"
 
-	"github.com/WuLianN/go-blog/global"
-	"github.com/WuLianN/go-blog/pkg/util"
+	"github.com/WuLianN/go-blog-service/global"
+	"github.com/WuLianN/go-blog-service/pkg/util"
 )
 
 

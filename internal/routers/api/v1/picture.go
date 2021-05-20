@@ -1,12 +1,13 @@
 package v1
 
 import (
+	"github.com/WuLianN/go-blog-service/global"
+	"github.com/WuLianN/go-blog-service/internal/service"
+	"github.com/WuLianN/go-blog-service/pkg/app"
 	"github.com/gin-gonic/gin"
-	"github.com/WuLianN/go-blog/global"
-	"github.com/WuLianN/go-blog/internal/service"
-	"github.com/WuLianN/go-blog/pkg/app"
-	// "github.com/WuLianN/go-blog/pkg/convert"
-	"github.com/WuLianN/go-blog/pkg/errcode"
+
+	// "github.com/WuLianN/go-blog-service/pkg/convert"
+	"github.com/WuLianN/go-blog-service/pkg/errcode"
 )
 
 type Picture struct{}

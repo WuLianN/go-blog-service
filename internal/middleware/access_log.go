@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"time"
 
+	"github.com/WuLianN/go-blog-service/global"
+	"github.com/WuLianN/go-blog-service/pkg/logger"
 	"github.com/gin-gonic/gin"
-	"github.com/WuLianN/go-blog/global"
-	"github.com/WuLianN/go-blog/pkg/logger"
 )
 
 type AccessLogWriter struct {

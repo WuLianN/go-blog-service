@@ -1,21 +1,22 @@
 package main
 
 import (
-	"net/http"
-	"time"
-	"log"
+	"context"
 	"flag"
-	"strings"
+	"log"
+	"net/http"
 	"os"
 	"os/signal"
-	"context"
+	"strings"
 	"syscall"
-	"github.com/WuLianN/go-blog/internal/routers"
-	"github.com/WuLianN/go-blog/global"
-	"github.com/WuLianN/go-blog/pkg/setting"
-	"github.com/WuLianN/go-blog/internal/model"
-	"github.com/WuLianN/go-blog/pkg/logger"
-	"github.com/WuLianN/go-blog/pkg/tracer"
+	"time"
+
+	"github.com/WuLianN/go-blog-service/global"
+	"github.com/WuLianN/go-blog-service/internal/model"
+	"github.com/WuLianN/go-blog-service/internal/routers"
+	"github.com/WuLianN/go-blog-service/pkg/logger"
+	"github.com/WuLianN/go-blog-service/pkg/setting"
+	"github.com/WuLianN/go-blog-service/pkg/tracer"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/natefinch/lumberjack.v2"

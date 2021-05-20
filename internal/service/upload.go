@@ -5,9 +5,9 @@ import (
 	"mime/multipart"
 	"os"
 
-	"github.com/WuLianN/go-blog/global"
+	"github.com/WuLianN/go-blog-service/global"
 
-	"github.com/WuLianN/go-blog/pkg/upload"
+	"github.com/WuLianN/go-blog-service/pkg/upload"
 )
 
 

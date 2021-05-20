@@ -1,4 +1,4 @@
-module github.com/WuLianN/go-blog
+module github.com/WuLianN/go-blog-service
 
 go 1.15
 

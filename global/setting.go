@@ -1,8 +1,8 @@
 package global
 
 import (
-	"github.com/WuLianN/go-blog/pkg/logger"
-	"github.com/WuLianN/go-blog/pkg/setting"
+	"github.com/WuLianN/go-blog-service/pkg/logger"
+	"github.com/WuLianN/go-blog-service/pkg/setting"
 )
 
 var (

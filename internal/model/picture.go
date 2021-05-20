@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/WuLianN/go-blog/global"
+	"github.com/WuLianN/go-blog-service/global"
 	"gorm.io/gorm"
 )
 

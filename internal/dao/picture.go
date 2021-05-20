@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"github.com/WuLianN/go-blog/internal/model"
-	"github.com/WuLianN/go-blog/pkg/app"
+	"github.com/WuLianN/go-blog-service/internal/model"
+	"github.com/WuLianN/go-blog-service/pkg/app"
 )
 
 func (d *Dao) GetPictureList(name string, state uint8, page, pageSize int) ([]*model.Picture, error) {

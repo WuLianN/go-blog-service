@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/WuLianN/go-blog/pkg/app"
-	"github.com/WuLianN/go-blog/internal/model"
+	"github.com/WuLianN/go-blog-service/internal/model"
+	"github.com/WuLianN/go-blog-service/pkg/app"
 )
 
 type CountPictureRequest struct {

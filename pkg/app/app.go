@@ -3,8 +3,8 @@ package app
 import (
 	"net/http"
 
+	"github.com/WuLianN/go-blog-service/pkg/errcode"
 	"github.com/gin-gonic/gin"
-	"github.com/WuLianN/go-blog/pkg/errcode"
 )
 
 type Response struct {

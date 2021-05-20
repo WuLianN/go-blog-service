@@ -3,10 +3,11 @@ package model
 import (
 	"fmt"
 	"time"
-	"github.com/WuLianN/go-blog/global"
-	"github.com/WuLianN/go-blog/pkg/setting"
-	"gorm.io/gorm"
+
+	"github.com/WuLianN/go-blog-service/global"
+	"github.com/WuLianN/go-blog-service/pkg/setting"
 	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 const (

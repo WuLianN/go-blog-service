@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/WuLianN/go-blog/global"
-	"github.com/WuLianN/go-blog/internal/middleware"
-	"github.com/WuLianN/go-blog/internal/routers/api"
-	v1 "github.com/WuLianN/go-blog/internal/routers/api/v1"
-	"github.com/WuLianN/go-blog/pkg/limiter"
+	"github.com/WuLianN/go-blog-service/global"
+	"github.com/WuLianN/go-blog-service/internal/middleware"
+	"github.com/WuLianN/go-blog-service/internal/routers/api"
+	v1 "github.com/WuLianN/go-blog-service/internal/routers/api/v1"
+	"github.com/WuLianN/go-blog-service/pkg/limiter"
 	"github.com/gin-gonic/gin"
 )
 

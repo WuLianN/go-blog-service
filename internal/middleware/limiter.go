@@ -1,10 +1,10 @@
 package middleware
 
 import (
+	"github.com/WuLianN/go-blog-service/pkg/app"
+	"github.com/WuLianN/go-blog-service/pkg/errcode"
+	"github.com/WuLianN/go-blog-service/pkg/limiter"
 	"github.com/gin-gonic/gin"
-	"github.com/WuLianN/go-blog/pkg/app"
-	"github.com/WuLianN/go-blog/pkg/errcode"
-	"github.com/WuLianN/go-blog/pkg/limiter"
 )
 
 func RateLimiter(l limiter.LimiterIface) gin.HandlerFunc {
