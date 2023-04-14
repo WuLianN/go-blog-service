@@ -1,11 +1,12 @@
 package middleware
 
 import (
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 
 	"github.com/WuLianN/go-blog-service/pkg/app"
 	"github.com/WuLianN/go-blog-service/pkg/errcode"
 	"github.com/gin-gonic/gin"
+	"errors"
 )
 
 func JWT() gin.HandlerFunc {
@@ -25,10 +26,9 @@ func JWT() gin.HandlerFunc {
 		} else {
 			_, err := app.ParseToken(token)
 			if err != nil {
-				switch err.(*jwt.ValidationError).Errors {
-				case jwt.ValidationErrorExpired:
+				if errors.Is(err, jwt.ErrTokenExpired) {
 					ecode = errcode.UnauthorizedTokenTimeout
-				default:
+				} else {
 					ecode = errcode.UnauthorizedTokenError
 				}
 			}

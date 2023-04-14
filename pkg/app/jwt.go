@@ -5,13 +5,13 @@ import (
 
 	"github.com/WuLianN/go-blog-service/global"
 	"github.com/WuLianN/go-blog-service/pkg/util"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 type Claims struct {
 	AppKey string `json:"app_key"`
 	AppSecret string `json:"app_secret"`
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 func GetJWTSecret() string {
@@ -24,14 +24,14 @@ func GenerateToken(appKey, appSecret string) (string, error) {
 	claims := Claims{
 		AppKey:    util.EncodeMD5(appKey),
 		AppSecret: util.EncodeMD5(appSecret),
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expireTime.Unix(),
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(expireTime),
+			IssuedAt: jwt.NewNumericDate(nowTime),
 			Issuer:    global.JWTSetting.Issuer,
 		},
 	}
 
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	// GetJWTSecret() -> []byte(GetJWTSecret())
 	token, err := tokenClaims.SignedString([]byte(GetJWTSecret()))
 
 	return token, err
@@ -39,11 +39,9 @@ func GenerateToken(appKey, appSecret string) (string, error) {
 
 func ParseToken(token string) (*Claims, error) {
 	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return GetJWTSecret(), nil
+		return []byte(GetJWTSecret()), nil
 	})
-	if err != nil {
-		return nil, err
-	}
+
 	if tokenClaims != nil {
 		claims, ok := tokenClaims.Claims.(*Claims)
 		if ok && tokenClaims.Valid {
