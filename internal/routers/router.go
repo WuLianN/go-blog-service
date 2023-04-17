@@ -23,7 +23,7 @@ var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
 
 
 func SetupRouter() *gin.Engine {
-    r := gin.Default()
+  r := gin.Default()
 
 	// 跨域
 	r.Use(middleware.Cors())
@@ -31,22 +31,23 @@ func SetupRouter() *gin.Engine {
 	// 访问日志
 	// r.Use(middleware.AccessLog())
 	// 链路追踪
-	r.Use(middleware.Tracing())
+	// r.Use(middleware.Tracing())
 	// 接口限流控制
 	r.Use(middleware.RateLimiter(methodLimiters))
 	// 统一超时管理
 	r.Use(middleware.ContextTimeout(global.AppSetting.DefaultContextTimeout))
      
 	upload := api.NewUpload()
-    picture := v1.NewPicture()
+  picture := v1.NewPicture()
 
-    r.POST("/upload/file", upload.UploadFile)
+  r.POST("/upload/file", upload.UploadFile)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 
-	r.GET("/auth", api.GetAuth)
+	r.POST("/login", api.Login)
+	r.POST("/register", api.Register)
     
 	apiv1 := r.Group("api/v1")
-	// apiv1.Use(middleware.JWT())
+	apiv1.Use(middleware.JWT())
 	{
 		apiv1.GET("/ping", func(c *gin.Context) {
 			c.JSON(200, gin.H{
@@ -57,5 +58,5 @@ func SetupRouter() *gin.Engine {
 		apiv1.GET("/pictures", picture.List)
 	}
 	
-    return r
+  return r
 }
